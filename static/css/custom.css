@@ -1,0 +1,15 @@
+.navbar-custom {
+    min-height: 4rem;
+    background-color: #563d7c !important;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+}
+
+.card-option-img {
+    max-width: 60% !important;
+    text-align: center;
+    margin: auto;
+}
+
+#id_ingredient{
+    list-style: none !important;
+}

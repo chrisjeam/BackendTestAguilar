@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cocina{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Cocina</h1>
+{% endblock header %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+			<div class="col-md-9">
+				<div class="row">
+					<div class="col-md">
+						<a href="/kitchen/menus">
+							<div class="card text-center">
+								<img src="{% static 'imgs/menu.svg' %}" class="card-option-img" alt="menu">								
+								<div class="card-body">
+									<h5 class="card-title">Menu's</h5>
+								</div>
+							</div>
+						</a>
+					</div>
+					<div class="col-md">
+						<a href="/kitchen/foods">
+							<div class="card text-center">
+								<img src="{% static 'imgs/river-plate.svg' %}" class="card-option-img" alt="menu">								
+								<div class="card-body">
+									<h5 class="card-title">Platos</h5>
+								</div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3">
+				<h4>Lista de pedidos</h4>
+				{% if data.orders %}
+				<ul class="list-group">
+					{% for order in data.orders %}
+					<li class="list-group-item">Cras justo odio</li>					
+					{% endfor %}
+				</ul>
+				{% else %}
+				<p class="text-center">No hay peidos pendientes</p>
+				{% endif %}
+			</div>
+		</div>
+		<p>Actualizado al {{data.fecha}}</p>
+	</div>
+{% endblock content %}
