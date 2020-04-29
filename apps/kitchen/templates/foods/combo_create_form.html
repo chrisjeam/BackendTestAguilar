@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nuevo Plato{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Crear un nuevo combo</h1>
+{% endblock header %}
+
+
+{% block content %}
+    <div class="container">
+        <p>Indique los platos que desea para su combo</p>
+        <form class="form" method="POST" action="">
+            {% csrf_token %}
+            {{ form.as_p }} 
+            <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+            <a href="/kitchen/foods" class="btn btn-sm btn-danger">Cancelar</a>
+        </form>
+    </div>
+{% endblock content %}

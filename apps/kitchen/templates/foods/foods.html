@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Platos{% endblock title %}
+
+{% block header %}
+<h1 class="container">Platos</h1>
+{% endblock header %}
+
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<header class="my-4 d-flex justify-content-between align-items-center">
+				<h5>Combos</h5>
+				<a href="/kitchen/foods/new-combo" 	class="btn btn-primary btn-sm">+</a>
+			</header>
+			{% if combos %}
+			<div class="row">
+				{% for combo in combos %}
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<header class="my-4 d-flex justify-content-between align-items-center">
+								<h5>{{combo.name}} </h5>	
+								<a type="button" class="btn btn-sm btn-danger" href="foods/delete-combo/{{combo.id}}"> x </a>							
+							</header>							
+							<ul class="list-group">
+								{% for food in combo.food.all %}
+								<li class="list-group-item">
+									<p>
+										<span>
+											{% if food.type_f == 'ensalada' %}
+											<img src="{% static 'imgs/salad.svg' %}" alt="salad" width="40">
+											{% elif food.type_f == 'principal' %}
+											<img src="{% static 'imgs/principal.svg' %}" alt="principal" width="40">
+											{% elif food.type_f == 'postre' %}
+											<img src="{% static 'imgs/sweet.svg' %}" alt="sweet" width="40">
+											{% else %}
+											<img src="{% static 'imgs/none.svg' %}" alt="none" width="40">
+											{% endif %}
+										</span> 
+										{{food.name}}
+									</p>
+								</li>
+								{% endfor %}
+							</ul>
+							<span>{{combo.date}}</span>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			{% else %}
+			<p class="text-center">No hay combos registrados. Si desea puede agregar uno <a href="/kitchen/foods/new-combo">acá</a></p>
+			{% endif %}
+		</div>
+		<div class="col-md-4">
+			<header class="my-4 d-flex justify-content-between align-items-center">
+				<h5>Platillos</h5>
+				<a href="/kitchen/foods/new-food" class="btn btn-primary btn-sm">+</a>
+			</header>
+			<ul class="list-group">
+				{% for food in object_list %}
+				<li class="list-group-item  d-flex justify-content-between align-items-center">
+					<p>
+						<span>
+							{% if food.type_f == 'ensalada' %}
+							<img src="{% static 'imgs/salad.svg' %}" alt="salad" width="20">
+							{% elif food.type_f == 'principal' %}
+							<img src="{% static 'imgs/principal.svg' %}" alt="principal" width="20">
+							{% elif food.type_f == 'postre' %}
+							<img src="{% static 'imgs/sweet.svg' %}" alt="sweet" width="20">
+							{% else %}
+							<img src="{% static 'imgs/none.svg' %}" alt="none" width="20">
+							{% endif %}
+						</span> 
+						{{food.name}}
+					</p>
+					<a type="button" class="btn btn-sm btn-danger" href="foods/delete-food/{{food.id}}"> x </a>
+				</li>  
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+</div>
+{% endblock content %}

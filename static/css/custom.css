@@ -1,15 +1,41 @@
+.header-page{
+    color: brown;
+    margin: 2rem auto;
+    font-weight: bold;
+    border-bottom: solid #e1e1e1 1px;
+}
 .navbar-custom {
     min-height: 4rem;
-    background-color: #563d7c !important;
+    background-color: brown !important;
     box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
 }
 
 .card-option-img {
-    max-width: 60% !important;
+    max-width: 50% !important;
     text-align: center;
-    margin: auto;
+    margin: 20px auto;
+    transition: all .3s linear;
+
 }
+
+a:hover .card-option-img {
+    transform: scale(1.05);    
+    transition: all .3s linear;
+}  
 
 #id_ingredient{
     list-style: none !important;
 }
+
+.kitchen-title{
+    text-decoration: none !important;
+    font-size: 18pt;
+    font-weight: bold;
+    color: brown;
+    margin-bottom: .75rem;
+}
+
+.underline-none{
+    text-decoration: none !important;
+}
+

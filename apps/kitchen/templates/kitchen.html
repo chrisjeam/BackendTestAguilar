@@ -8,45 +8,57 @@
 {% endblock header %}
 
 {% block content %}
-	<div class="container">
-		<div class="row">
-			<div class="col-md-9">
-				<div class="row">
-					<div class="col-md">
-						<a href="/kitchen/menus">
-							<div class="card text-center">
-								<img src="{% static 'imgs/menu.svg' %}" class="card-option-img" alt="menu">								
-								<div class="card-body">
-									<h5 class="card-title">Menu's</h5>
-								</div>
+	<div class="row">
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md">
+					<a class="underline-none" href="/kitchen/menus">
+						<div class="card text-center">
+							<img src="{% static 'imgs/menu.svg' %}" class="card-option-img" alt="menu">								
+							<div class="card-body">
+								<h5 class="kitchen-title">Menu's</h5>
 							</div>
-						</a>
-					</div>
-					<div class="col-md">
-						<a href="/kitchen/foods">
-							<div class="card text-center">
-								<img src="{% static 'imgs/river-plate.svg' %}" class="card-option-img" alt="menu">								
-								<div class="card-body">
-									<h5 class="card-title">Platos</h5>
-								</div>
+						</div>
+					</a>
+				</div>
+				<div class="col-md">
+					<a class="underline-none" href="/kitchen/foods">
+						<div class="card text-center">
+							<img src="{% static 'imgs/plate.svg' %}" class="card-option-img" alt="menu">								
+							<div class="card-body">
+								<h5 class="kitchen-title">Platos</h5>
 							</div>
-						</a>
-					</div>
+						</div>
+					</a>
 				</div>
 			</div>
-			<div class="col-md-3">
-				<h4>Lista de pedidos</h4>
-				{% if data.orders %}
-				<ul class="list-group">
-					{% for order in data.orders %}
-					<li class="list-group-item">Cras justo odio</li>					
-					{% endfor %}
-				</ul>
-				{% else %}
-				<p class="text-center">No hay peidos pendientes</p>
-				{% endif %}
-			</div>
 		</div>
-		<p>Actualizado al {{data.fecha}}</p>
+		<div class="col-md-4">
+			<h4>Lista de pedidos</h4>
+			{% if object_list %}
+			<ul class="list-group">
+				{% for order in object_list %}
+				<li class="list-group-item">
+					<div>
+						<b>{{order.employee}}</b><br>
+						<a  data-toggle="collapse" href="#collapseExample{{order.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+							{{order.combo}}
+						</a>
+					</div>					
+					<div class="collapse" id="collapseExample{{order.id}}">
+						<ul>
+							{% for food in order.combo.food.all %}
+							<li> {{food.name}} </li>
+							{% endfor %}
+						</ul>
+					</div>
+				</li>					
+				{% endfor %}
+			</ul>
+			{% else %}
+			<p class="text-center">No hay peidos pendientes</p>
+			{% endif %}
+		</div>
 	</div>
+	<p>Actualizado al {{timeNow}}</p>
 {% endblock content %}

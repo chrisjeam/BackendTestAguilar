@@ -9,25 +9,61 @@
 
 {% block content %}
 	<div class="container">
-		<h4>Menu de hoy {{data.fecha}}</h4>
+		<h4>Menu de hoy {{timeNow}} {{hour}}hs </h4>
+		<small>NOTA: Solo puede escoger un combo antes de las 11</small>
 		<div class="row">
-			{% if data.combos %}
-				{% for combo in combos %}
-				<div class="col-md-6">
-					<a href="/kitchen/menus">
-						<div class="card text-center">
-							<img src="{% static 'imgs/menu.svg' %}" class="card-option-img" alt="menu">								
-							<div class="card-body">
-								<h5 class="card-title">Plato</h5>
-							</div>
+			{% for combo in menu.combo.all %}
+			<div class="col-md-6">
+				<div class="card mb-3">
+					<form method="POST" action="">
+						{% csrf_token %}
+						<input type="hidden" name="combo" value="{{combo.id}}">
+						<div class="card-body">
+							<h4><img src="{% static 'imgs/menu-today.svg' %}" alt="menu" width="40" class="mr-2"> {{ combo.name }} </h4>
+							<ul class="list-group">
+								{% for food in combo.food.all %}
+								<li class="list-group-item">
+									<span>
+										{% if food.type_f == 'ensalada' %}
+										<img src="{% static 'imgs/salad.svg' %}" alt="salad" width="20">
+										{% elif food.type_f == 'principal' %}
+										<img src="{% static 'imgs/principal.svg' %}" alt="principal" width="20">
+										{% elif food.type_f == 'postre' %}
+										<img src="{% static 'imgs/sweet.svg' %}" alt="sweet" width="20">
+										{% else %}
+										<img src="{% static 'imgs/none.svg' %}" alt="none" width="20">
+										{% endif %}
+									</span> 
+									{{food.name}} 
+									{% if food.exceptions.all %}
+										<small>Indique los ingredientes que no desea en su plato</small>  
+										{% for ingredient in food.exceptions.all %}
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" name="ingredient" value="{{ingredient.id}}" id="ingredient_{{ingredient.name}}" name="exceptions">
+											<label class="form-check-label" for="ingredient_{{ingredient.name}}">
+												Sin {{ingredient.name}}
+											</label>
+										</div>
+										{% endfor %}
+									{% endif %}
+								</li>			
+								{% endfor %}
+							</ul>
+							<span class="d-inline-block" tabindex="0" {% if hour > 11 %}  title="Solo puede seleccionar un combo antes de las 11hs" data-toggle="tooltip" {% endif %}>
+								<button type="submit" class="btn btn-primary mt-3 {% if hour > 21 %} disabled {% endif %} ">
+									Seleccionar
+								</button>
+							</span>
 						</div>
-					</a>
+					</form>
 				</div>
-				{% endfor %}
-			{% else %}
-				<p class="text-center">No menu para el dia de  hoy</p>
-			{% endif %}
-			
+			</div>	
+			{% endfor %}
 		</div>
 	</div>
+	<script>
+		$(function () {
+			$('[data-toggle="tooltip"]').tooltip()
+		})
+	</script>
 {% endblock content %}

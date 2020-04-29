@@ -1,6 +1,5 @@
 from django.db import models
 from datetime import datetime
-from apps.kitchen.models import Combo
 
 # Create your models here.
 class Employee(models.Model):
@@ -10,13 +9,9 @@ class Employee(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
-        db_table = 'Empleado'
-        ordering = ['name']
+        db_table = 'employee'
+        ordering = ['rut']
 
 
-class Order(models.Model):
-    name = models.CharField(max_length=30, verbose_name='Nombre')
-    employee = models.ForeignKey(Employee, on_delete=models.CASCADE)
-    date = models.DateField(default=datetime.now, verbose_name='Fecha')
-    combos = models.ManyToManyField(Combo)

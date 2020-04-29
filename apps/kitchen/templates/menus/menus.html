@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Menus{% endblock title %}
+
+{% block header %}
+<h1 class="container">Menus</h1>
+{% endblock header %}
+
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="col-md">
+			<header class="text-right mb-3">
+				<a href="/kitchen/menus/new-menu" class="btn btn-primary btn-sm ">+</a>
+			</header>
+			{% if object_list %}
+			<div class="row">
+				{% for menu in object_list %}
+				<div class="col-md-6">
+					<div class="card">
+						<div class="card-body">
+							<header class="mb-3 d-flex justify-content-between align-items-center">								
+								<div class="">
+									<h5><img src="{% static 'imgs/menu-today.svg' %}" alt="menu" width="40" class="mr-2"> Menu del dia {{menu.date}} </h5>											
+								</div>						
+								<a type="button" class="btn btn-sm btn-danger" href="menus/delete-menu/{{menu.id}}"> x </a>
+							</header>
+							<ul class="list-group">
+								{% for combo in menu.combo.all %}
+								<li class="list-group-item">
+									<b>{{combo.name}}</b> 
+									<ul>
+										{% for food in combo.food.all %} 
+										<li> 
+											<span>
+												{% if food.type_f == 'ensalada' %}
+												<img src="{% static 'imgs/salad.svg' %}" alt="salad" width="20">
+												{% elif food.type_f == 'principal' %}
+												<img src="{% static 'imgs/principal.svg' %}" alt="principal" width="20">
+												{% elif food.type_f == 'postre' %}
+												<img src="{% static 'imgs/sweet.svg' %}" alt="sweet" width="20">
+												{% else %}
+												<img src="{% static 'imgs/none.svg' %}" alt="none" width="20">
+												{% endif %}
+											</span> 
+											{{food.name}} 
+										</li> 
+										{% endfor %}
+									</ul>
+								
+								</li>					
+								{% endfor %}
+							</ul>
+						</div>
+					</div>
+				</div>
+				{% endfor%}
+			</div>
+			{% else %}
+			<p class="text-center">No hay menus registrados. Si desea puede agregar uno <a href="/kitchen/menus/new-menu">acá</a></p>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endblock content %}

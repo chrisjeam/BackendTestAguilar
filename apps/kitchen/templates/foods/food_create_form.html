@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nuevo Plato{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Agregar un nuevo plato</h1>
+{% endblock header %}
+
+
+{% block content %}
+	<div class="container">
+		<p>Indique los datos de su nuevo plato</p>
+		<form class="form" method="POST" action="">
+			{% csrf_token %}
+			<div class="form-group">
+				<label for="id_name">Nombre</label>                
+				{{ form.name }}
+				<small id="emailHelp" class="form-text text-muted">Ingrese un nombre no existente.</small>
+			</div>            
+			<div class="form-group">
+				<label for="type">Tipo</label>
+				<select class="form-control" id="type" name="type_f" required="required">
+					<option value="principal">Plato Principal</option>
+				  	<option value="ensalada">Ensalada</option>
+				  	<option value="postre">Postre</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="id_exceptions">Excepciones</label>  
+				<small id="emailHelp" class="form-text text-muted">Indique los ingredientes que el cliente puede eliminar de la comida.</small> 
+				<div class="form-check">                
+					{{ form.exceptions }}
+				</div>
+			</div>
+			<div class="block">
+				<button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+				<a href="/kitchen/foods" class="btn btn-sm btn-danger">Cancelar</a>
+			</div>
+		</form>
+	</div>
+{% endblock content %}

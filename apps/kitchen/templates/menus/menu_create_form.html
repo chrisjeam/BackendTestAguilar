@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Nuevo Plato{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Crear un nuevo menu</h1>
+{% endblock header %}
+
+
+{% block content %}
+    <div class="container">
+        <p>Indique los combos que desea para su menu</p>
+        <form class="form" method="POST" action="">
+            {% csrf_token %}
+            {{ form }} 
+            <button type="submit" class="btn btn-sm btn-primary">Guardar</button>
+            <a href="/kitchen/menus" class="btn btn-sm btn-danger">Cancelar</a>
+        </form>
+    </div>
+    <script>
+        $('.input-daterange input').each(function() {
+            $(this).datepicker('clearDates');
+         });
+    </script>
+{% endblock content %}
