@@ -1,7 +1,6 @@
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
-from apps.diner.models import Employee
 
 # Create your models here.
 class Ingredient(models.Model):
@@ -38,13 +37,12 @@ class Combo(models.Model):
         ordering = ['name']
 
 class Menu(models.Model):
-    name = models.CharField(max_length=50)
     date = models.DateField()
     combo = models.ManyToManyField(Combo)
 
     class Meta:
         db_table = 'menu'
-        ordering = ['name']
+        ordering = ['id']
     
 class Order(models.Model):
     employee = models.ForeignKey(User, on_delete=models.CASCADE)

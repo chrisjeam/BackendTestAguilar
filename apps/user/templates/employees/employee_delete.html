@@ -1,22 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Eliminar Combo{% endblock title %}
+{% block title %}Eliminar empleado{% endblock title %}
 
 {% block header %}
-	<h1 class="container">Eliminar un combo</h1>
+	<h1 class="container">Eliminar empleado</h1>
 {% endblock header %}
 
 
 {% block content %}
     <div class="container">
         <div class="alert alert-danger" role="alert">
-            Está seguro de eliminar el combo {{ object.name }}
+            Está seguro de eliminar el empleado "{{object.first_name}} {{object.last_name}}"?
         </div>
-        <form class="form" method="POST" action="">
+        <form class="form" method="POST">
             {% csrf_token %}
             <button type="submit" class="btn btn-sm btn-primary">Aceptar</button>
-            <a href="/kitchen/foods" class="btn btn-sm btn-danger">Cancelar</a>
+            <a href="{% url 'food_list_view' %}" class="btn btn-sm btn-danger">Cancelar</a>
         </form>
     </div>
 {% endblock content %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}comedor{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Bienvenido a Menu's Nora</h1>
+{% endblock header %}
+
+{% block content %}
+	<div class="container">
+		<div class="row">
+            <div class="col-md-6">
+                <a class="underline-none" href="{% url 'diner_view' %}">
+                    <div class="card text-center">
+                        <img src="{% static 'imgs/menu.svg' %}" class="card-option-img" alt="menu">								
+                        <div class="card-body">
+                            <h5 class="kitchen-title">Menú</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+			{% if user.get_username == 'nora' %}
+            <div class="col-md-6">
+                <a class="underline-none" href="{% url 'kitchen_view' %}">
+                    <div class="card text-center">
+                        <img src="{% static 'imgs/plate.svg' %}" class="card-option-img" alt="menu">								
+                        <div class="card-body">
+                            <h5 class="kitchen-title">Cocina</h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock content %}

@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title %}Nuevo empleado{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Registrar un nuevo empleado</h1>
+{% endblock header %}
+
+
+{% block content %}
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+            {%endif%}
+            <div class="form-group">
+                <label for="exampleInputPassword1">Usuario</label>
+                {{ form.username  | add_class:"form-control" | attr:"autocomplete : off"  | attr:"required : required"  }}
+                <div class="invalid-feedback">
+                    {{form.username.errors}}
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="exampleInputPassword1">Nombre</label>
+                {{ form.first_name  | add_class:"form-control" | attr:"autocomplete : off"  | attr:"required : required"  }}
+                <div class="invalid-feedback">
+                    {{form.first_name.errors}}
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Apellido</label>
+                {{ form.last_name  | add_class:"form-control"  | attr:"autocomplete : off"  | attr:"required : required"  }}
+                <div class="invalid-feedback">
+                    {{form.last_name.errors}}
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleInputPassword1">Contraseña</label>
+                {{ form.password1  | add_class:"form-control" | attr:"autocomplete : off"  | attr:"required : required"  }}
+                <div class="invalid-feedback">
+                    {{form.password1.errors}}
+                </div>
+            </div>
+            <ul class="info">
+                <li>
+                    Su contraseña no puede ser muy similar a su otra información personal.
+                </li>
+                <li>
+                    Su contraseña debe contener al menos 8 caracteres.
+                </li>
+                <li>
+                    Su contraseña no puede ser una contraseña de uso común.
+                </li>
+                <li>
+                    Su contraseña no puede ser completamente numérica.
+                </li>
+            </ul>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Repetir Contraseña</label>
+                {{ form.password2  | add_class:"form-control" | attr:"autocomplete : off"  | attr:"required : required"  }}
+                <div class="invalid-feedback">
+                    {{form.password1.errors}}
+                </div>
+            </div>
+            <input type="submit" class="btn btn-sm btn-primary" value="Registrar">
+            <a href="{% url 'food_list_view' %}" class="btn btn-sm btn-danger">Cancelar</a>
+        </form>
+    </div>
+    <script>
+        $('.input-daterange input').each(function() {
+            $(this).datepicker('clearDates');
+         });
+    </script>
+{% endblock content %}

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DeleteView
+from django.contrib.auth.models import User
 from datetime import datetime
 from apps.kitchen.models import Order, Menu, Food, Combo
 from apps.kitchen.forms import MenuForm, FoodForm, ComboForm

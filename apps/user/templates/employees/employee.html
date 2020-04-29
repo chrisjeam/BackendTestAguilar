@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Cocina{% endblock title %}
+
+{% block header %}
+	<h1 class="container">Empleados</h1>
+{% endblock header %}
+
+{% block content %}
+    <header class="text-right mb-3">
+        <a href="{% url 'employee_new_view' %}" class="btn btn-primary btn-sm ">+</a>
+    </header>
+	<div class="row">
+        {% for employee in object_list %}
+        <div class="col-md-4 mb-4">
+            <div class="card text-center">
+                <img src="{% static 'imgs/user.svg' %}" class="card-option-img" alt="menu" width="60">								
+                <div class="card-body">
+                    <h5 class="kitchen-title">{{employee.first_name}} {{employee.last_name}}</h5>
+                    <ul class="text-left">
+                        <li>Username: {{employee.username}}</li>
+                        <li>Email: {{employee.email}}</li>
+                        <li>Ultima conexion: {{employee.last_login}}</li>
+                    </ul>
+                    {% if user.get_username != employee.username %}
+                    <a href="/employee/delete-employee/{{employee.id}}" class="btn btn-sm btn-danger" >Eliminar</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+	</div>
+</div>
+{% endblock %}
