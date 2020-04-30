@@ -39,3 +39,6 @@ a:hover .card-option-img {
     text-decoration: none !important;
 }
 
+.invalid-feedback{
+    color: red;
+}

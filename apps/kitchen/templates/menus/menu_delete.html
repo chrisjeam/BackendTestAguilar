@@ -11,11 +11,11 @@
 {% block content %}
     <div class="container">
         <div class="alert alert-danger" role="alert">
-            Está seguro de eliminar el menu "{{object.name}}"?
+            Está seguro de eliminar el menu "{{object.date}}"?
         </div>
         <form class="form" method="POST" action="">
             {% csrf_token %}
-            {{ form.as_p }} 
+            {{ form }} 
             <button type="submit" class="btn btn-sm btn-primary">Aceptar</button>
             <a href="/kitchen/menus" class="btn btn-sm btn-danger">Cancelar</a>
         </form>

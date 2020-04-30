@@ -13,10 +13,18 @@
 		<p>Indique los datos de su nuevo plato</p>
 		<form class="form" method="POST" action="">
 			{% csrf_token %}
+			{% if form.non_field_errors %}
+			<div class="alert alert-danger" role="alert">					
+				{{ form.non_field_errors }}
+			</div>
+			{%endif%}
 			<div class="form-group">
 				<label for="id_name">Nombre</label>                
 				{{ form.name }}
-				<small id="emailHelp" class="form-text text-muted">Ingrese un nombre no existente.</small>
+				<small id="emailHelp" class="form-text text-muted">Ingrese un nombre no existente.</small>             
+				<div class="invalid-feedback">
+					{{form.name.errors}}
+				</div>
 			</div>            
 			<div class="form-group">
 				<label for="type">Tipo</label>
@@ -24,13 +32,19 @@
 					<option value="principal">Plato Principal</option>
 				  	<option value="ensalada">Ensalada</option>
 				  	<option value="postre">Postre</option>
-				</select>
+				</select>    
+				<div class="invalid-feedback">
+					{{form.type_f.errors}}
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="id_exceptions">Excepciones</label>  
 				<small id="emailHelp" class="form-text text-muted">Indique los ingredientes que el cliente puede eliminar de la comida.</small> 
 				<div class="form-check">                
 					{{ form.exceptions }}
+				</div>    
+				<div class="invalid-feedback">
+					{{form.exceptions.errors}}
 				</div>
 			</div>
 			<div class="block">

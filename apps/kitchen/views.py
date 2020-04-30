@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.views.generic import ListView, CreateView, DeleteView
 from django.contrib.auth.models import User
 from datetime import datetime
 from apps.kitchen.models import Order, Menu, Food, Combo
 from apps.kitchen.forms import MenuForm, FoodForm, ComboForm
+from apps.kitchen.tasks import sendSlackMessage
 
-# Create your views here.
 class KitchenView(ListView):
 	model = Order
 	template_name = 'kitchen.html'
@@ -59,11 +60,16 @@ class MenuCreateView(CreateView):
 	form_class = MenuForm
 	template_name = 'menus/menu_create_form.html'
 	success_url = reverse_lazy('menu_list_view')
-
+	
+	def form_valid(self, form):
+		self.object = form.save()
+		sendSlackMessage(self.object.id)
+		return super().form_valid(form)
 
 class MenuDeleteView(DeleteView):
 	model = Menu
 	form_class = MenuForm
 	template_name = 'menus/menu_delete.html'
 	success_url = reverse_lazy('menu_list_view')
+
 	

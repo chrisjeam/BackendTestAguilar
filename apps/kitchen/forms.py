@@ -36,7 +36,7 @@ class ComboForm(forms.ModelForm):
 class MenuForm(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(MenuForm, self).__init__(*args, **kwargs)
-		self.fields['date'].initial = datetime.now
+		self.fields['date'].initial = datetime.now()
 
 	class Meta:
 		model = Menu

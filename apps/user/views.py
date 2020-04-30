@@ -3,7 +3,9 @@ from django.contrib.auth.models import User
 from django.views.generic import View, ListView, CreateView, DeleteView
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
+from datetime import datetime
 from apps.user.forms import RegisterForm
+from apps.kitchen.models import Order, Menu
 
 # Create your views here.
 class EmployeeFormView(CreateView):
@@ -64,3 +66,19 @@ class HomeView(View):
 			print(e)
 	
 		return redirect(url_redirect)
+
+class MenuView(View):
+	def get(self, request, uuid):
+		data = uuid.replace('-', '') 
+		today = datetime.now()
+		now = today.strftime('%d/%m/%Y')
+		hour = today.hour
+		try:
+			menu_query = Order.objects.get(date=today)
+		except Order.DoesNotExist:
+			menu_query = None
+		try:
+			query = Menu.objects.get(uuid=data)			
+		except Menu.DoesNotExist:
+			query = None
+		return render(request, 'diner.html', {'menu': query, 'timeNow': now, 'hour': hour, 'last_menu': menu_query})

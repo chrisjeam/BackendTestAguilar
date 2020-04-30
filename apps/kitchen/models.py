@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from datetime import datetime
 from django.contrib.auth.models import User
@@ -37,8 +38,9 @@ class Combo(models.Model):
         ordering = ['name']
 
 class Menu(models.Model):
-    date = models.DateField()
+    date = models.DateField(unique=True)
     combo = models.ManyToManyField(Combo)
+    uuid = models.UUIDField(null=True, default=uuid.uuid4, editable=False)
 
     class Meta:
         db_table = 'menu'
@@ -48,6 +50,7 @@ class Order(models.Model):
     employee = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField(default=datetime.now, verbose_name='Fecha')
     combo = models.ForeignKey(Combo, on_delete=models.CASCADE)
+    exceptions = models.ManyToManyField(Ingredient, blank=True)
 
     class Meta:
         db_table = 'order'

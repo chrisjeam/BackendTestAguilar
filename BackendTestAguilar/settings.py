@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-cl'
 
 TIME_ZONE = 'America/Santiago'
 
@@ -129,3 +129,8 @@ STATICFILES_DIRS = [
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/'
+
+# Celery Settings
+CELERY_BROKER_URL = 'redis://h:p8ed052224c0335eb38a3696d042d71677f5090ee26844e48356ad0a80f4b7240@ec2-3-81-254-48.compute-1.amazonaws.com:20079'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZE = 'json'
